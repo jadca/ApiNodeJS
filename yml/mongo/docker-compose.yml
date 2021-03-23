@@ -12,7 +12,7 @@ services:
         ports:
             - 27017:27017
         environment:
-             MONGO_INITDB_ROOT_USERNAME: jadca
+             MONGO_INITDB_ROOT_USERNAME: usuario
              MONGO_INITDB_ROOT_PASSWORD: 123456
     
     mongodb-express:

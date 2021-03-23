@@ -12,31 +12,31 @@ let server= new InversifyExpressServer(myContainer,null,{rootPath:"/api/v1"});
 const corsOptions = {
   origin: "http://localhost:3000"
 };
+
 server.setConfig((app)=>{
   app.use(bodyParser.urlencoded({extended:true}));
+  app.use(bodyParser.json());
+  app.use(morgan.default("combined"));
   app.use('/api-docs/swagger', express.static('swagger'));
   app.use(
     '/api-docs/swagger/assets',
     express.static('node_modules/swagger-ui-dist')
   );
-  app.use(bodyParser.json());
-  app.use(morgan.default("combined"));
-  app.use(
-    swagger.express({
-      definition: {
-	externalDocs: {
-	  url: 'My url',
-	},
-	info: {
-	  title: 'My api',
-	  version: '1.0',
-	},
-	responses: {
-	  500: {},
-	},
-      },      
-    })
-  );
+  app.use( swagger.express({
+    definition: {
+      externalDocs: {
+	url: 'My url',
+      },
+      info: {
+	title: 'My api',
+	version: '1.0',
+      },
+      responses: {
+	500: {},
+      },
+    },      
+  }));
+
 });
 
 
@@ -49,3 +49,5 @@ server.setErrorConfig((app)=>{
 
 let app= server.build();
 app.listen(3000,"localhost",()=> console.log('server up and running port 3000'));
+
+
